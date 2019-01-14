@@ -1,9 +1,21 @@
-<!--script>
-import axios from 'axios'
+<template>
+    <div>
+        <h2>Dashboard</h2>
+        <p>Name: {{ user.name }}</p>
+    </div>
+</template>
 
+<script>
+import axios from 'axios'
+import router from '@/router'
 export default {
-  name: 'Main',
+  name: 'Login',
   data () {
+    return {
+      user: {
+        name: 'Jesse'
+      }
+    }
   },
   methods: {
     getUserData: function () {
@@ -13,6 +25,7 @@ export default {
           self.$set(this, 'user', response.data.user)
         })
         .catch((errors) => {
+          router.push('/api/login')
         })
     }
   },
@@ -20,4 +33,4 @@ export default {
     this.getUserData()
   }
 }
-</script-->
+</script>

@@ -1,17 +1,14 @@
 <template>
     <div>
         <h2>Login</h2>
-        <form href="#" v-on:submit="login">
-            Email: <input type="text" name="email"/><br>
-            Password: <input type="password" name="password"/><br>
+        <form v-on:submit="login">
+            <input type="text" name="email"/><br>
+            <input type="password" name="password"/><br>
             <input type="submit" value="Login"/>
         </form>
-        <!--form v-on:submit="register">
-          <input type="submit" value="Register"/>
-        </form-->
     </div>
 </template>
-
+3
 <script>
 import router from '@/router'
 import axios from 'axios'
@@ -29,11 +26,11 @@ export default {
         }
         axios.post('/api/login', data)
           .then((response) => {
-            router.push('/')
+            console.log('Logged in')
+            router.push('/dashboard')
           })
           .catch((errors) => {
             console.log('Cannot log in')
-            router.push('/login')
           })
       }
       login()
@@ -41,7 +38,3 @@ export default {
   }
 }
 </script>
-
-<style>
-
-</style>
