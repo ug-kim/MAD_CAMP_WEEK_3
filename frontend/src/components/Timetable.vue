@@ -11,46 +11,50 @@
               <div v-if="activetab_1 === 1" class="tabcontent">
                 <p>
                   전공구분<br>
-                  <input type="checkbox" name="crucial" value="crucial" v-model="crucial"/>공통필수
-                  <input type="checkbox" name="crucial" value="ncrucial" v-model="crucial"/>교선필수
+                  <input type="checkbox" name="crucial" value="crucial">공통필수
+                  <input type="checkbox" name="crucial" value="ncrucial">교선필수
                 </p>
                 <p>
                   교과영역<br>
-                  <input type="checkbox" name="subject" value="english" v-model="subject">영어
-                  <input type="checkbox" name="subject" value="mirebrain" v-model="subject">MIREBraiN
-                  <input type="checkbox" name="subject" value="tech" v-model="subject">기술경영
-                  <input type="checkbox" name="subject" value="design" v-model="subject">디자인 사고
-                  <input type="checkbox" name="subject" value="leadership" v-model="subject">리더십
-                  <input type="checkbox" name="subject" value="physics" v-model="subject">물리
-                  <input type="checkbox" name="subject" value="noscience" v-model="subject">비이공계리더
-                  <input type="checkbox" name="subject" value="biology" v-model="subject">생물
-                  <input type="checkbox" name="subject" value="math" v-model="subject">수학
-                  <input type="checkbox" name="subject" value="convergence" v-model="subject">융복합(UGRP/기타)
-                  <input type="checkbox" name="subject" value="music" v-model="subject">음악
-                  <input type="checkbox" name="subject" value="society" v-model="subject">인문사회
-                  <input type="checkbox" name="subject" value="startup" v-model="subject">창업리더
-                  <input type="checkbox" name="subject" value="sports" v-model="subject">체육
-                  <input type="checkbox" name="subject" value="computer" v-model="subject">컴퓨터
-                  <input type="checkbox" name="subject" value="statics" v-model="subject">통계
-                  <input type="checkbox" name="subject" value="chemistry" v-model="subject">화학
+                  <input type="checkbox" name="subject" value="영어">영어
+                  <input type="checkbox" name="subject" value="mirebrain">MIREBraiN
+                  <input type="checkbox" name="subject" value="tech">기술경영
+                  <input type="checkbox" name="subject" value="design">디자인 사고
+                  <input type="checkbox" name="subject" value="leadership">리더십
+                  <input type="checkbox" name="subject" value="physics">물리
+                  <input type="checkbox" name="subject" value="noscience">비이공계리더
+                  <input type="checkbox" name="subject" value="biology">생물
+                  <input type="checkbox" name="subject" value="math">수학
+                  <input type="checkbox" name="subject" value="convergence">융합탐구세미나
+                  <input type="checkbox" name="subject" value="music">음악
+                  <input type="checkbox" name="subject" value="인문사회">인문사회
+                  <input type="checkbox" name="subject" value="창업리더">창업리더
+                  <input type="checkbox" name="subject" value="exercise">체육
+                  <input type="checkbox" name="subject" value="computer">컴퓨터
+                  <input type="checkbox" name="subject" value="statics">통계
+                  <input type="checkbox" name="subject" value="chemistry">화학
                 </p>
                 <p>
                   학년<br>
-                  <input type="checkbox" name="grade" value="1" v-model="grade">1학년
-                  <input type="checkbox" name="grade" value="2" v-model="grade">2학년
-                  <input type="checkbox" name="grade" value="3" v-model="grade">3학년
-                  <input type="checkbox" name="grade" value="4" v-model="grade">4학년
+                  <input type="checkbox" name="grade" value="1">1학년
+                  <input type="checkbox" name="grade" value="2">2학년
+                  <input type="checkbox" name="grade" value="3">3학년
+                  <input type="checkbox" name="grade" value="4">4학년
                 </p>
               </div>
               <div v-if="activetab_1 === 2" class="tabcontent">
                 <div class="add_bucket">
                   <div class="bucket_add_list" v-for="slist in slists" :key="slist.id">
                     <div class="bucket_add_title">{{ slist.category }}</div>
-                    <div class="bucket_add_content" v-for="item in slists[1].items" :key="item.id">
+                    <div class="bucket_add_content" v-for="item in slists[1].items" :key="item._id">
                       <div class="bucket_add_item">{{ item.title }}</div>
                       <div class="bucket_add_item">{{ item.grade }}</div>
                       <div class="bucket_add_item">{{ item.professor }}</div>
-                      <div class="bucket_add_item"><button>+</button></div>   
+                      <div class="bucket_add_item">
+                        <span >itemid = {{ item._id }}</span>
+                        <!-- <button v-bind: value = "item._id">필수</button>
+                        <button v-bind: value = "item._id">고민</button> -->
+                      </div>   
                     </div>
                   </div>
                 </div>
@@ -67,205 +71,202 @@
             <div v-if="activetab_3 === 1" class="tablecontent">
               <div class="whole_table">
                 <div class="empty">
-                  <div class="textholder">
-                    <div><span class="timetext">8</span></div>
-                  </div>
-
+                  <div class=" empty textholder"><span class="timetext">8</span></div>
                   <div class="empty time1"></div>
-                  <div class="empty time2"></div>
-                  <div class="empty time3">9</div>
-                  <div class="empty time4"></div>
-                  <div class="empty time5">10</div>
-                  <div class="empty time6"></div>
-                  <div class="empty time7">11</div>
-                  <div class="empty time8"></div>
-                  <div class="empty time9">12</div>
-                  <div class="empty time10"></div>
-                  <div class="empty time11">1</div>
-                  <div class="empty time12"></div>
-                  <div class="empty time13">2</div>
-                  <div class="empty time14"></div>
-                  <div class="empty time15">3</div>
-                  <div class="empty time16"></div>
-                  <div class="empty time17">4</div>
-                  <div class="empty time18"></div>
-                  <div class="empty time19">5</div>
-                  <div class="empty time20"></div>
-                  <div class="empty time21">6</div>
-                  <div class="empty time22"></div>
-                  <div class="empty time23">7</div>
-                  <div class="empty time24"></div>
-                  <div class="empty time25">8</div>
-                  <div class="empty time26"></div>
-                  <div class="empty time27">9</div>
-                  <div class="empty time28"></div>
-                  <div class="empty time29">10</div>
-
+                  <div class="empty time2 textholder"><span class="timetext">9</span></div>
+                  <div class="empty time3"></div>
+                  <div class="empty time4 textholder"><span class="timetext">10</span></div>
+                  <div class="empty time5"></div>
+                  <div class="empty time6 textholder"><span class="timetext">11</span></div>
+                  <div class="empty time7"></div>
+                  <div class="empty time8 textholder"><span class="timetext">12</span></div>
+                  <div class="empty time9"></div>
+                  <div class="empty time10 textholder"><span class="timetext">1</span></div>
+                  <div class="empty time11"></div>
+                  <div class="empty time12 textholder"><span class="timetext">2</span></div>
+                  <div class="empty time13"></div>
+                  <div class="empty time14 textholder"><span class="timetext">3</span></div>
+                  <div class="empty time15"></div>
+                  <div class="empty time16 textholder"><span class="timetext">4</span></div>
+                  <div class="empty time17"></div>
+                  <div class="empty time18 textholder"><span class="timetext">5</span></div>
+                  <div class="empty time19"></div>
+                  <div class="empty time20 textholder"><span class="timetext">6</span></div>
+                  <div class="empty time21"></div>
+                  <div class="empty time22 textholder"><span class="timetext">7</span></div>
+                  <div class="empty time23"></div>
+                  <div class="empty time24 textholder"><span class="timetext">8</span></div>
+                  <div class="empty time25"></div>
+                  <div class="empty time26 textholder"><span class="timetext">9</span></div>
+                  <div class="empty time27"></div>
+                  <div class="empty time28 textholder"><span class="timetext">10</span></div>
+                  <div class="empty time29"></div>
                 </div>
                 <div class="day monday">
                   <div>Mon</div>
-                  <div class="mon time1"></div>
-                  <div class="mon time2"></div>
-                  <div class="mon time3"></div>
-                  <div class="mon time4"></div>
-                  <div class="mon time5"></div>
-                  <div class="mon time6"></div>
-                  <div class="mon time7"></div>
-                  <div class="mon time8"></div>
-                  <div class="mon time9"></div>
-                  <div class="mon time10"></div>
-                  <div class="mon time11"></div>
-                  <div class="mon time12"></div>
-                  <div class="mon time13"></div>
-                  <div class="mon time14"></div>
-                  <div class="mon time15"></div>
-                  <div class="mon time16"></div>
-                  <div class="mon time17"></div>
-                  <div class="mon time18"></div>
-                  <div class="mon time19"></div>
-                  <div class="mon time20"></div>
-                  <div class="mon time21"></div>
-                  <div class="mon time22"></div>
-                  <div class="mon time23"></div>
-                  <div class="mon time24"></div>
-                  <div class="mon time25"></div>
-                  <div class="mon time26"></div>
-                  <div class="mon time27"></div>
-                  <div class="mon time28"></div>
-                  <div class="mon time29"></div>
+                  <div class="mon time time1"></div>
+                  <div class="mon time time2"></div>
+                  <div class="mon time time3"></div>
+                  <div class="mon time time4"></div>
+                  <div class="mon time time5">
+                    <div class="subject_container">
+                      <div class="subject_delete"></div>
+                      <div class="subject_content color2 size3">hello</div>
+                    </div>
+                  </div>
+                  <div class="mon time time6"></div>
+                  <div class="mon time time7"></div>
+                  <div class="mon time time8"></div>
+                  <div class="mon time time9"></div>
+                  <div class="mon time time10"></div>
+                  <div class="mon time time11"></div>
+                  <div class="mon time time12"></div>
+                  <div class="mon time time13"></div>
+                  <div class="mon time time14"></div>
+                  <div class="mon time time15"></div>
+                  <div class="mon time time16"></div>
+                  <div class="mon time time17"></div>
+                  <div class="mon time time18"></div>
+                  <div class="mon time time19"></div>
+                  <div class="mon time time20"></div>
+                  <div class="mon time time21"></div>
+                  <div class="mon time time22"></div>
+                  <div class="mon time time23"></div>
+                  <div class="mon time time24"></div>
+                  <div class="mon time time25"></div>
+                  <div class="mon time time26"></div>
+                  <div class="mon time time27"></div>
+                  <div class="mon time time28"></div>
+                  <div class="mon time time29"></div>
                 </div>
                 <div class="day tueday">
                   <div>Tue</div>
-                  <div class="tue time1"></div>
-                  <div class="tue time2"></div>
-                  <div class="tue time3"></div>
-                  <div class="tue time4"></div>
-                  <div class="tue time5"></div>
-                  <div class="tue time6"></div>
-                  <div class="tue time7"></div>
-                  <div class="tue time8"></div>
-                  <div class="tue time9"></div>
-                  <div class="tue time10"></div>
-                  <div class="tue time11"></div>
-                  <div class="tue time12"></div>
-                  <div class="tue time13"></div>
-                  <div class="tue time14"></div>
-                  <div class="tue time15"></div>
-                  <div class="tue time16"></div>
-                  <div class="tue time17"></div>
-                  <div class="tue time18"></div>
-                  <div class="tue time19"></div>
-                  <div class="tue time20"></div>
-                  <div class="tue time21"></div>
-                  <div class="tue time22"></div>
-                  <div class="tue time23"></div>
-                  <div class="tue time24"></div>
-                  <div class="tue time25"></div>
-                  <div class="tue time26"></div>
-                  <div class="tue time27"></div>
-                  <div class="tue time28"></div>
-                  <div class="tue time29"></div>
+                  <div class="tue time time1"></div>
+                  <div class="tue time time2"></div>
+                  <div class="tue time time3"></div>
+                  <div class="tue time time4"></div>
+                  <div class="tue time time5"></div>
+                  <div class="tue time time6"></div>
+                  <div class="tue time time7"></div>
+                  <div class="tue time time8"></div>
+                  <div class="tue time time9"></div>
+                  <div class="tue time time10"></div>
+                  <div class="tue time time11"></div>
+                  <div class="tue time time12"></div>
+                  <div class="tue time time13"></div>
+                  <div class="tue time time14"></div>
+                  <div class="tue time time15"></div>
+                  <div class="tue time time16"></div>
+                  <div class="tue time time17"></div>
+                  <div class="tue time time18"></div>
+                  <div class="tue time time19"></div>
+                  <div class="tue time time20"></div>
+                  <div class="tue time time21"></div>
+                  <div class="tue time time22"></div>
+                  <div class="tue time time23"></div>
+                  <div class="tue time time24"></div>
+                  <div class="tue time time25"></div>
+                  <div class="tue time time26"></div>
+                  <div class="tue time time27"></div>
+                  <div class="tue time time28"></div>
+                  <div class="tue time time29"></div>
                 </div>
                 <div class="day wedday">                  
                   <div>Wed</div>
-                  <div class="wed time1"></div>
-                  <div class="wed time2"></div>
-                  <div class="wed time3"></div>
-                  <div class="wed time4"></div>
-                  <div class="wed time5"></div>
-                  <div class="wed time6"></div>
-                  <div class="wed time7"></div>
-                  <div class="wed time8"></div>
-                  <div class="wed time9"></div>
-                  <div class="wed time10"></div>
-                  <div class="wed time11"></div>
-                  <div class="wed time12"></div>
-                  <div class="wed time13"></div>
-                  <div class="wed time14"></div>
-                  <div class="wed time15"></div>
-                  <div class="wed time16"></div>
-                  <div class="wed time17"></div>
-                  <div class="wed time18"></div>
-                  <div class="wed time19"></div>
-                  <div class="wed time20"></div>
-                  <div class="wed time21"></div>
-                  <div class="wed time22"></div>
-                  <div class="wed time23"></div>
-                  <div class="wed time24"></div>
-                  <div class="wed time25"></div>
-                  <div class="wed time26"></div>
-                  <div class="wed time27"></div>
-                  <div class="wed time28"></div>
-                  <div class="wed time29"></div>
+                  <div class="wed time time1"></div>
+                  <div class="wed time time2"></div>
+                  <div class="wed time time3"></div>
+                  <div class="wed time time4"></div>
+                  <div class="wed time time5"></div>
+                  <div class="wed time time6"></div>
+                  <div class="wed time time7"></div>
+                  <div class="wed time time8"></div>
+                  <div class="wed time time9"></div>
+                  <div class="wed time time10"></div>
+                  <div class="wed time time11"></div>
+                  <div class="wed time time12"></div>
+                  <div class="wed time time13"></div>
+                  <div class="wed time time14"></div>
+                  <div class="wed time time15"></div>
+                  <div class="wed time time16"></div>
+                  <div class="wed time time17"></div>
+                  <div class="wed time time18"></div>
+                  <div class="wed time time19"></div>
+                  <div class="wed time time20"></div>
+                  <div class="wed time time21"></div>
+                  <div class="wed time time22"></div>
+                  <div class="wed time time23"></div>
+                  <div class="wed time time24"></div>
+                  <div class="wed time time25"></div>
+                  <div class="wed time time26"></div>
+                  <div class="wed time time27"></div>
+                  <div class="wed time time28"></div>
+                  <div class="wed time time29"></div>
                 </div>
                 <div class="day thuday">                  
                   <div>Thu</div>
-                  <div class="thu time1"></div>
-                  <div class="thu time2"></div>
-                  <div class="thu time3"></div>
-                  <div class="thu time4"></div>
-                  <div class="thu time5"></div>
-                  <div class="thu time6"></div>
-                  <div class="thu time7"></div>
-                  <div class="thu time8"></div>
-                  <div class="thu time9"></div>
-                  <div class="thu time10"></div>
-                  <div class="thu time11"></div>
-                  <div class="thu time12"></div>
-                  <div class="thu time13"></div>
-                  <div class="thu time14"></div>
-                  <div class="thu time15"></div>
-                  <div class="thu time16"></div>
-                  <div class="thu time17"></div>
-                  <div class="thu time18"></div>
-                  <div class="thu time19"></div>
-                  <div class="thu time20"></div>
-                  <div class="thu time21"></div>
-                  <div class="thu time22"></div>
-                  <div class="thu time23"></div>
-                  <div class="thu time24"></div>
-                  <div class="thu time25"></div>
-                  <div class="thu time26"></div>
-                  <div class="thu time27"></div>
-                  <div class="thu time28"></div>
-                  <div class="thu time29"></div>
+                  <div class="thu time time1"></div>
+                  <div class="thu time time2"></div>
+                  <div class="thu time time3"></div>
+                  <div class="thu time time4"></div>
+                  <div class="thu time time5"></div>
+                  <div class="thu time time6"></div>
+                  <div class="thu time time7"></div>
+                  <div class="thu time time8"></div>
+                  <div class="thu time time9"></div>
+                  <div class="thu time time10"></div>
+                  <div class="thu time time11"></div>
+                  <div class="thu time time12"></div>
+                  <div class="thu time time13"></div>
+                  <div class="thu time time14"></div>
+                  <div class="thu time time15"></div>
+                  <div class="thu time time16"></div>
+                  <div class="thu time time17"></div>
+                  <div class="thu time time18"></div>
+                  <div class="thu time time19"></div>
+                  <div class="thu time time20"></div>
+                  <div class="thu time time21"></div>
+                  <div class="thu time time22"></div>
+                  <div class="thu time time23"></div>
+                  <div class="thu time time24"></div>
+                  <div class="thu time time25"></div>
+                  <div class="thu time time26"></div>
+                  <div class="thu time time27"></div>
+                  <div class="thu time time28"></div>
+                  <div class="thu time time29"></div>
                 </div>
                 <div class="day friday">                  
                   <div>Fri</div>
-                  <div class="fri time1"></div>
-                  <div class="fri time2"></div>
-                  <div class="fri time3"></div>
-                  <div class="fri time4"></div>
-                  <div class="fri time5"></div>
-                  <div class="fri time6"></div>
-                  <div class="fri time7"></div>
-                  <div class="fri time8"></div>
-                  <div class="fri time9"></div>
-                  <div class="fri time10"></div>
-                  <div class="fri time11"></div>
-                  <div class="fri time12"></div>
-                  <div class="fri time13"></div>
-                  <div class="fri time14"></div>
-                  <div class="fri time15"></div>
-                  <div class="fri time16"></div>
-                  <div class="fri time17"></div>
-                  <div class="fri time18"></div>
-                  <div class="fri time19"></div>
-                  <div class="fri time20"></div>
-                  <div class="fri time21"></div>
-                  <div class="fri time22"></div>
-                  <div class="fri time23"></div>
-                  <div class="fri time24"></div>
-                  <div class="fri time25"></div>
-                  <div class="fri time26"></div>
-                  <div class="fri time27"></div>
-                  <div class="fri time28"></div>
-                  <div class="fri time29"></div>
+                  <div class="fri time time1"></div>
+                  <div class="fri time time2"></div>
+                  <div class="fri time time3"></div>
+                  <div class="fri time time4"></div>
+                  <div class="fri time time5"></div>
+                  <div class="fri time time6"></div>
+                  <div class="fri time time7"></div>
+                  <div class="fri time time8"></div>
+                  <div class="fri time time9"></div>
+                  <div class="fri time time10"></div>
+                  <div class="fri time time11"></div>
+                  <div class="fri time time12"></div>
+                  <div class="fri time time13"></div>
+                  <div class="fri time time14"></div>
+                  <div class="fri time time15"></div>
+                  <div class="fri time time16"></div>
+                  <div class="fri time time17"></div>
+                  <div class="fri time time18"></div>
+                  <div class="fri time time19"></div>
+                  <div class="fri time time20"></div>
+                  <div class="fri time time21"></div>
+                  <div class="fri time time22"></div>
+                  <div class="fri time time23"></div>
+                  <div class="fri time time24"></div>
+                  <div class="fri time time25"></div>
+                  <div class="fri time time26"></div>
+                  <div class="fri time time27"></div>
+                  <div class="fri time time28"></div>
+                  <div class="fri time time29"></div>
                 </div>
-
-
-                            
-
               </div>
             </div>
             <div v-if="activetab_3 === 2" class="tablecontent">
@@ -313,6 +314,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'whole',
   data () {
@@ -333,14 +335,6 @@ export default {
     }
   },
   methods: {
-    searchTerm: function() {
-      const baseURI = '';
-      this.$http.get(`${baseURI}/posts`)
-      .then((result) => {
-        console.log(result)
-        this.posts = result.data
-      })
-    },
     search: function() {
       let data = {
         crucial: this.crucial,
@@ -521,7 +515,7 @@ export default {
 
   /* ----------------------------------------Bucket region----------------------------------------- */
   #bucket_container {
-    height: 51vh;
+    height: 49vh;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 0.9em;
     color: #888;
@@ -645,7 +639,8 @@ export default {
     display: grid;
     grid-template-columns: 40px 1fr 1fr 1fr 1fr 1fr;
     text-align: center;
-
+    z-index: 1;
+    
   }
 
   .empty {
@@ -660,13 +655,34 @@ export default {
   
   }
 
-  .monday .time1 {
-    border-top: 1px solid lightgray;
+  .mon {
+    border-top: 1px dashed lightgray;
+
+  }
+  .tue {
+    border-top: 1px dashed lightgray;
+  }
+  .wed {
+    border-top: 1px dashed lightgray;
+  }
+  .thu {
+    border-top: 1px dashed lightgray;
+  }
+  .fri {
+    border-top: 1px dashed lightgray;
+  }
+
+  .textholder {
+    position: relative;
   }
 
   .timetext {
+    position: absolute;
+    bottom: -8px;
+    right: 10px;
+  }
 
-    display: inline-block;
+  .subject_container {
     position: absolute;
     margin-left: 0.2vh;
     margin-right: 0.2vh;
@@ -693,8 +709,8 @@ export default {
 
   .color2 {
     background-color: #FAD391;
-  
   }
+
   .color3 {
     background-color: #FB8896;
   }
@@ -713,12 +729,53 @@ export default {
 
   .color7 {
     background-color: #ECD9BB;
-    bottom: -8px;
   }
 
-  .textholder {
-    flex: none;
+  .color8 {
+    background-color: #fd999a;
   }
 
+  .color9 {
+    background-color: #f8ecc9;
+  }
   
+  .color10 {
+    background-color: #fcbe32;
+  }
+  
+/* ----------------------------------------Size--------------------------------------- */
+
+  .size1 {  
+    /* 1은 30분단위 */
+    height: 2.83vh;
+    width: 14.1vh;
+  }
+
+  .size2 {
+    height: 5.66vh;
+    width: 14.1vh;
+  }
+
+  .size3 {
+    height: 8.49vh;
+    width: 14.1vh;
+  }
+
+  .size4 {
+    height: 11.32vh;
+    width: 14.1vh;
+  }
+
+  .size6 {
+    height: 16.98vh;
+    width: 14.1vh;
+  }
+
+  .size8 {
+    height: 22.64vh;
+    width: 14.1vh;
+  }
+
+
+
 </style>
