@@ -640,8 +640,8 @@ export default {
 
   .color2 {
     background-color: #FAD391;
+  
   }
-
   .color3 {
     background-color: #FB8896;
   }
