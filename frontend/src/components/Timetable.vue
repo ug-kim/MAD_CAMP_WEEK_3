@@ -668,6 +668,51 @@ export default {
 
     display: inline-block;
     position: absolute;
+    margin-left: 0.2vh;
+    margin-right: 0.2vh;
+    z-index: 2;
+  }
+
+
+  .time {
+    position: relative;
+  }
+
+  .subject_delete {
+    position: absolute;
+  }
+
+
+
+
+
+/* ------------------------------------Color------------------------------------- */
+  .color1 {
+    background-color: #A2E6B7;
+  }
+
+  .color2 {
+    background-color: #FAD391;
+  
+  }
+  .color3 {
+    background-color: #FB8896;
+  }
+
+  .color4 {
+    background-color: #98BDED;
+  }
+
+  .color5 {
+    background-color: #E3CEF5;
+  }
+
+  .color6 {
+    background-color: #D4F2CA;
+  }
+
+  .color7 {
+    background-color: #ECD9BB;
     bottom: -8px;
   }
 
