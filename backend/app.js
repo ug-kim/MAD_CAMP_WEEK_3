@@ -40,6 +40,7 @@ var MongoClient = mongodb.MongoClient;
 
 var url = 'mongodb://localhost:27017'
 
+var email = ''
 //user login 관리
 MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
     if (err)
@@ -47,25 +48,23 @@ MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
     else{
         db = client.db('timetable')
 
-        app.get("/", (req, res, next) => {  
+        app.post("/", (req, res, next) => {  
             res.redirect("/")
             return res.sendFile("index.html", { root: publicRoot })
         })
 
-        app.get('/api/logout', function(req,res){
+        app.post('/api/logout', function(req,res){
             console.log('logout실행')
             req.logout();
             return res.send();
         });
 
-        app.get('/api/', function(req,res){
+        app.post('/api/', function(req, res){
             console.log("main"+req.body)
             if(req.user && req.user.name){
                 return res.send("hello " + req.user.name);
             }
-            else{
-                app.get('/api/login', function(req,res){})
-            }
+            else{}
         });
 
         passport.serializeUser(function(user, done){
@@ -77,7 +76,8 @@ MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
             console.log('deserializeUser', name);
             db.collection('user').findOne({'name': name}, function(err,user){
                 console.log(user)
-                return done(null,user);
+                email = user.email;
+                return done(null, user);
             });
         })
 
@@ -122,12 +122,12 @@ MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
                 }
                 req.login(user, err => {
                     console.log("loginok")
-                    return res.redirect('/')
+                    return res.send('login완료')
                 });
             })(req, res, next);
         });
 
-        app.post('/api/register', function(req, res){
+        app.post('/api/register', function(req, res, next){
             var insertJson = {
                 'email' : req.body.email,
                 'name' : req.body.name,
@@ -140,8 +140,8 @@ MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
                     console.log('이미 가입된 email입니다.')
                 }
                 else{
-                    db.collection('user').insertOne(insertJson, function(err,res){
-                    })
+                    db.collection('user').insertOne(insertJson)
+                    console.log('register 완료')
                     return res.send()
                 }
             })
@@ -157,10 +157,10 @@ MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
             }
         }
 
-        app.get("/api/user", authMiddleware, (req, res) => {
+        app.post("/api/user", authMiddleware, (req, res) => {
             db.collection('user').find({'name':req.session.passport.user}).count(function(err,number){
                 if(number == 0){
-                    console.log(req.session.passport.user)   
+                    console.log(req.session.passport.user)
                     console.log("api/user 0")     
                 }
                 else{
@@ -186,35 +186,108 @@ MongoClient.connect(url,{useNewUrlParser: true}, function(err,client){
         db = client.db('timetable')
 
         app.post('/api/search', function(req, res){
-            db.collection('subject').find(
-                {'과목번호':{$in:[req.body.grade]}, '이수구분' :{$in:[req.body.crucial]}, '교과영역':{$in:[req.body.subject]}},
+            db.collection('subject').find( {'grade':{$in:req.body.grade}, 'crucial' :{$in:req.body.crucial}, 'subject':{$in:req.body.subject}}).toArray(
                 function(err, subject){
-                    return res.send(subject)
+                    console.log(req.body.grade)
+                    console.log(req.body.crucial)
+                    console.log(req.body.subject)
+                    console.log(subject[0])
+                    res.send(subject)
             })
         });
 
         app.post('/api/insert_bucket', function(req,res){
-            db.collection('bucket').insertOne(req.body);
-            return res.send('insertok')
-        });
-
-        app.get('api/insert_bucket', function(req, res){
-            db.collection('bucket').find({'user' : req.body.user}, function(err,subject){
-                return res.send(subject)
+            db.collection('subject').find({ NO : req.body.item}).count(function(err,number){
+                console.log(req.body.item)
+                console.log(number)
+                if(number != 0){
+                    db.collection('subject').findOne({NO : req.body.item}, function(err, subject){
+                        console.log(subject)
+                        let data = { NO : req.body.item, subject: subject.subject, grade : subject.grade, class : subject.class,
+                        title : subject.title, professor : subject.professor , method : subject.method,
+                        time : get_time(subject), user : email }
+                        if( req.body.must ){
+                            db.collection('bucket_must').find({ NO: data.NO , user : email}).count(function(err, num){
+                                if( num == 0){
+                                    db.collection('bucket_must').insertOne(data);}
+                                else {
+                                    res.send('이미 교과목이 포함되어 있습니다.');
+                                }}
+                            )}
+                        else {
+                            db.collection('bucket_option').find({ NO: data.NO , user : email}).count(function(err, num){
+                                if( num == 0){
+                                    db.collection('bucket_option').insertOne(data);}
+                                else {
+                                    res.send('이미 교과목이 포함되어 있습니다.');
+                                    }
+                                }
+                            )}
+                    })
+                }
             })
         });
 
-        app.post('api/insert_table', function(req, res){
+        app.post('/api/load_bucket', function(req, res){
+            console.log('getbucket')
+            console.log(req)
+            console.log(req.body)
+            setTimeout(function(){
+                if(req.body.must){
+                db.collection('bucket_must').find({user : email}).toArray(function(err, subject){
+                    console.log("must bucket")
+                    console.log(subject)
+                    res.send(subject)
+                })
+                }
+            else{
+                db.collection('bucket_option').find({user : email}).toArray(function(err, subject){
+                    console.log("option bucket")
+                    console.log(subject)
+                    res.send(subject)
+                })
+            }}, 200)
+        });
+
+        app.post('/api/insert_table', function(req, res){
             db.collection('timetable').insertOne(req.body);
         });
 
-        app.get('api/insert_table', function(req, res){
-            db.collection('timetable').find({'user': req.body.user}, function(err, timetable){
+        app.post('/api/delete_table', function(req, res){
+            console.log("delete")
+            console.log(req.body)
+                db.collection('bucket_must').deleteOne({'NO':req.body.id, 'user':email});
+            });
+            
+   
+
+        app.get('/api/insert_table', function(req, res){
+            db.collection('timetable').find({'user': email}, function(err, timetable){
                 return res.send(timetable);
             })
         });
-
-
-
     }
 })
+
+get_time = function(subject){
+    sub = subject.time.split(', ')
+    times = []
+    var i = 0
+    while (i < sub.length) {
+        let day = sub[i][0]
+        let start = sub[i].substr(1, 5)
+        let starttime = start.split(':')[0]
+        let startminute = start.split(':')[1]
+        let end = sub[i].substr(7,5)
+        let endtime = end.split(':')[0]
+        let endminute = end.split(':')[1]
+        console.log(endtime)
+        console.log(endminute)
+        let interval = ((endtime-starttime) + ((endminute - startminute)/60))*2
+        let data = { 'day' : day, 'starttime' : start , 'interval' : interval} 
+        times.push(data)
+        i++
+    }
+    console.log(times)
+    return times
+}

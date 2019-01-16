@@ -1,23 +1,32 @@
 <template>
   <div id="App">
+    <div id="realhead">
       <div id="head">
         <div class="head-item1">
-          <!--router-link :to="{ name: 'App'}">디도미</router-link-->
-          <a href="#" v-on:click="getUserData">디도미</a>
+          <div class></div>
+          <router-link :to="{ name: 'App'}" id="didomi"><span class="title">디도미</span></router-link>
+          <div class></div>
         </div>
         <div class="head-item2">
-          <router-link :to="{ name: 'Timetable'}">시간표</router-link>
-          <router-link :to="{ name: 'Review'}">수강후기</router-link>
-          <router-link :to="{ name: 'Credit'}">학점이수표</router-link>
-          <router-link :to="{ name: 'Calculate'}">학점계산기</router-link>
+          <div></div>
+          <div>
+            <router-link :to="{ name: 'Timetable'}"><span class="title">시간표</span></router-link>
+            <a href="http://ugrp.dgist.ac.kr/~kjlee/curriculum/CurriculumTable_20180515.pdf" class="title"><span class="title">학점이수표</span></a>
+          </div>
+          <div></div>
         </div>
         <div class="head-item3">
-          <span v-show="login">{{ name }}님, 안녕하세요</span>
-          <router-link :to="{ name: 'Register'}" v-show="!login">회원가입</router-link>
-          <router-link :to="{ name: 'Login'}" v-show="!login">로그인</router-link>
-          <a href="#" v-on:click="logout" v-show="login">로그아웃</a>
+          <div></div>
+          <div>
+            <span v-show="login"><span class="title">{{ name }}님, 안녕하세요</span></span>
+            <router-link :to="{ name: 'Register'}" v-show="!login"><span class="title">회원가입</span></router-link>
+            <router-link :to="{ name: 'Login'}" v-show="!login"><span class="title">로그인</span></router-link>
+            <a href="#" v-on:click="logout" v-show="login"><span class="title">로그아웃</span></a>
+          </div>
+          <div></div>
         </div>
       </div>
+    </div>
     <router-view/>
   </div>
 </template>
@@ -31,18 +40,21 @@ export default {
   name: 'App',
   data () {
     return {
-      name: 'default',
-      login: false
+      name: 'guest',
+      login: false,
+      email: 'guest'
     }
   },
   methods: {
     logout: function (e) {
-      axios.get('/api/logout')
+      axios.post('/api/logout')
         .then((response) => {
           console.log('logout ok')
-          this.name = ''
+          this.name = 'guest'
           this.login = false
+          this.email = 'guest'
           router.push('/')
+          alert('로그아웃되었습니다.')
         })
         .catch((errors) => {
           console.log('cananot logout')
@@ -50,35 +62,44 @@ export default {
     },
     getUserData: function () {
       let self = this
-      axios.get('/api/user')
+      axios.post('/api/user')
         .then((response) => {
           self.$set(this, 'user', response.data.user)
           this.name = response.data.user.name
+          this.email = response.data.user.email
+          console.log('getuser')
+          console.log(response.data.user)
           this.login = true
+          router.push('/')
+          return response.data.user.email
         })
         .catch((errors) => {
+          console.log('getuserdata err')
+          router.push('/')
         })
+      
     }
   },
   mounted () {
     this.getUserData()
   },
   components: {
-    login: Login,
+    login: Login
   }
 }
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Do+Hyeon');
+@import url('https://fonts.googleapis.com/css?family=Sunflower:300');
 #head a {
   text-decoration: none;
   color: #000;
 }
 #head {
   display: grid;
-  grid-template-columns: 1fr 1400px 1fr;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  grid-template-columns: 1fr 1050px 1fr;
+  
 }
 .head-item2 a {
   margin-left: 10px;
@@ -86,5 +107,29 @@ export default {
 }
 .head-item3 a {
   margin-left: 10px;
+}
+#didomi {
+  margin-left: 10px;
+  font-weight: bold; 
+}
+.title {
+  font-size: 20px;
+  color: white;
+  font-family: 'Do Hyeon', sans-serif;
+
+}
+#realhead {
+  height: 5vh;
+  background-color: #AAABD3;
+  margin: 0;
+  padding: 0;
+  display: grid;
+}
+body {
+  margin: 0;
+}
+.head-item1, .head-item2, .head-item3 {
+  display: grid;
+  grid-template-rows: 1.5vh 2vh 1.5vh;
 }
 </style>

@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import App from '@/App.vue'
+import Main from '@/components/Main.vue'
 import Timetable from '@/components/Timetable'
 import Review from '@/components/Review'
 import Credit from '@/components/Credit'
@@ -19,8 +20,8 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'App',
-      component: App
+      name: 'Main',
+      component: Main
     },
     {
       path: '/register',
